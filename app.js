@@ -8,6 +8,12 @@ const getPrevNext = document.querySelector('#prev-and-next-container');
 
 //console.log({getForm, getInput, getButton, getUlSongs, getPrevNext});
 
+    const getMoreSongs = async url => {
+    const response = await fetch(`https://cors-anywhere.herokuapp.com/${url}`)
+    const data = await response.json();
+    insertIntoPage(data);
+}
+
 const insertIntoPage = songsInfo => {
     getUlSongs.innerHTML = songsInfo.data.map(song => `
     <li class="song">
