@@ -11,6 +11,7 @@ const getPrevNext = document.querySelector('#prev-and-next-container');
     const getMoreSongs = async url => {
     const response = await fetch(`https://cors-anywhere.herokuapp.com/${url}`)
     const data = await response.json();
+
     insertIntoPage(data);
 }
 
@@ -54,3 +55,26 @@ getForm.addEventListener('submit', e => {
     fetchMusic(termInput);
     
 });
+
+
+const fetchLyrics = async (artist, songTitle) => {
+    const response = await fetch (`${apiUrl}/v1/${artist}/${songTitle}`);
+    const data = await response.json();
+
+    getUlSongs.innerHTML = `
+        <li class='lyrics-container'>
+            <h2><strong>${songTitle}</strong> - ${artist}</h2>
+            <p class="lyrics">${data.lyrics}</p>
+        </li>
+    `;
+};
+
+
+getUlSongs.addEventListener('click', event => {
+    const clickedElement = event.target;
+
+    if(clickedElement.tagName === 'BUTTON'){
+        const artist = clickedElement.getAttribute('data-artist');
+        const songTitle = clickedElement.getAttribute('data-song-title');
+    }
+}) 
